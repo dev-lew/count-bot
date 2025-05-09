@@ -8,8 +8,6 @@ class MessageCounterClient(discord.Client):
     async def on_message(self, message: discord.Message):
         match message.content.strip().split():
             case ["!count", "from", channel_mention, "by", user_mention]:
-                print(f"{channel_mention}, {user_mention}")
-
                 channel_to_search = await self.or_fetch(
                     partial(self.get_channel, self.extract_mention(channel_mention))
                 )()
