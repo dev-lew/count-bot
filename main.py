@@ -30,7 +30,8 @@ class MessageCounterClient(discord.Client):
 
                 try:
                     async for msg in channel_to_search.history():
-                        count += 1
+                        if msg.author == user_to_search:
+                            count += 1
                 except Exception:
                     # Simpler than matching the kind of channel it is (e.g. private channel)
                     await message.channel.send("can't access the channel history :(")
