@@ -16,21 +16,13 @@ class MessageCounterClient(discord.Client):
                     await message.channel.send("the channel doesn't exist idiot!")
                     return
 
-                user_to_search = await self.or_fetch(
-                    partial(self.get_user, self.extract_mention(user_mention))
-                )()
-
-                print(self.extract_mention(user_mention))
-
-                if user_to_search is None:
-                    await message.channel.send("the user doesn't exist idiot!")
-                    return
+                user_id = self.extract_mention(user_mention)
 
                 count = 0
 
                 try:
                     async for msg in channel_to_search.history():
-                        if msg.author == user_to_search:
+                        if msg.author == user_id:
                             count += 1
                 except Exception:
                     # Simpler than matching the kind of channel it is (e.g. private channel)
